@@ -42,14 +42,25 @@
 
     $filter_hotels = [];
 
-    if($_GET['vote'] > 0 && !isset($_GET['parking'])){
+    if(strlen($_GET['vote']) && isset($_GET['parking'])){
         foreach($hotels as $hotel){
-            if($hotel['vote'] === $_GET['vote'] && $hotel['parking'] == $_GET['parking']){
+            if($hotel['vote'] == $_GET['vote'] && $hotel['parking'] == $_GET['parking']){
                 $filter_hotels[] = $hotel;
             }
         }
+
+        $hotels = $filter_hotels;
     }
-    var_dump($hotel);
+    elseif(strlen($_GET['vote'])){
+        foreach($hotels as $hotel){
+            if($hotel['vote'] === (int)$_GET['vote']){
+                $filter_hotels[] = $hotel;
+            }
+        }
+
+        $hotels = $filter_hotels;
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +96,7 @@
         </div>
 
         <select class="form-select w-25 mx-3" aria-label="Default select example" name="vote">
-            <option selected>VOTO</option>
+            <option selected value="">Nessun filtro</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -101,7 +112,6 @@
 
 <!-- tables -->
 
-<?php if(empty($filter_hotels)) : ?>
 <table class="table table-striped w-75 m-auto mt-5 text-center">
   <thead>
     <tr>
@@ -134,6 +144,6 @@
     <?php endforeach ?>
   </tbody>
 </table>
-<?php endif; ?>
+
 </body>
 </html>

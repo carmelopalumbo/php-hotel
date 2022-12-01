@@ -42,7 +42,14 @@
 
     $filter_hotels = [];
 
-    var_dump($_GET);
+    if($_GET['vote'] > 0 && !isset($_GET['parking'])){
+        foreach($hotels as $hotel){
+            if($hotel['vote'] === $_GET['vote'] && $hotel['parking'] == $_GET['parking']){
+                $filter_hotels[] = $hotel;
+            }
+        }
+    }
+    var_dump($hotel);
 ?>
 
 <!DOCTYPE html>
@@ -64,14 +71,14 @@
 <div class="container pt-5">
     <form action="./index.php" method="GET" class="d-flex w-100">
         <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="parking" id="withparking" value="withparking">
+            <input class="form-check-input" type="radio" name="parking" id="withparking" value="true">
             <label class="form-check-label" for="withparking">
                 CON PARCHEGGIO
             </label>
         </div>
 
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="parking" id="noparking" value="noparking">
+            <input class="form-check-input" type="radio" name="parking" id="noparking" value="false">
             <label class="form-check-label" for="noparking">
                 SENZA PARCHEGGIO
             </label>

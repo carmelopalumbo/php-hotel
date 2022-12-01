@@ -39,6 +39,10 @@
         ],
 
     ];
+
+    $filter_hotels = [];
+
+    var_dump($_GET);
 ?>
 
 <!DOCTYPE html>
@@ -54,13 +58,50 @@
     <title>PHP Hotel</title>
 </head>
 <body>
+
+<!-- form -->
+
+<div class="container pt-5">
+    <form action="./index.php" method="GET" class="d-flex w-100">
+        <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="parking" id="withparking" value="withparking">
+            <label class="form-check-label" for="withparking">
+                CON PARCHEGGIO
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="parking" id="noparking" value="noparking">
+            <label class="form-check-label" for="noparking">
+                SENZA PARCHEGGIO
+            </label>
+        </div>
+
+        <select class="form-select w-25 mx-3" aria-label="Default select example" name="vote">
+            <option selected>VOTO</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <button class="btn btn-info" type="submit">CERCA</button>
+    </form>
+</div>
+
+
+
+<!-- tables -->
+
+<?php if(empty($filter_hotels)) : ?>
 <table class="table table-striped w-75 m-auto mt-5 text-center">
   <thead>
     <tr>
       <th scope="col">Nome</th>
       <th scope="col">Descrizione</th>
       <th scope="col">Parcheggio</th>
-      <th scope="col">Stelle</th>
+      <th scope="col">Voto</th>
       <th scope="col">Distanza dal centro in km</th>
     </tr>
   </thead>
@@ -84,8 +125,8 @@
             <?php endforeach ?>
          </tr>
     <?php endforeach ?>
-   
   </tbody>
 </table>
+<?php endif; ?>
 </body>
 </html>

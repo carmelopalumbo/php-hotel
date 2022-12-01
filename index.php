@@ -42,22 +42,35 @@
 
     $filter_hotels = [];
 
+    // both filter
     if(strlen($_GET['vote']) && isset($_GET['parking'])){
+        $_GET['parking'] = $_GET['parking'] == 'true' ? true : false;
         foreach($hotels as $hotel){
             if($hotel['vote'] == $_GET['vote'] && $hotel['parking'] == $_GET['parking']){
                 $filter_hotels[] = $hotel;
             }
         }
-
         $hotels = $filter_hotels;
-    }
+    }  
+
+    // vote filter
     elseif(strlen($_GET['vote'])){
         foreach($hotels as $hotel){
-            if($hotel['vote'] === (int)$_GET['vote']){
+            if($hotel['vote'] == $_GET['vote']){
                 $filter_hotels[] = $hotel;
             }
         }
+        $hotels = $filter_hotels;
+    } 
 
+    // parking filter
+    elseif(isset($_GET['parking'])){
+        $_GET['parking'] = $_GET['parking'] == 'true' ? true : false;
+        foreach($hotels as $hotel){
+            if($hotel['parking'] == $_GET['parking']){
+                $filter_hotels[] = $hotel;
+            }
+        }
         $hotels = $filter_hotels;
     }
 
